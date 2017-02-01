@@ -9,12 +9,58 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY https://github.com/MattSurabian/DuckHunt-JS/package.json /usr/src/app/
+RUN cd /usr/src/app/
+
+RUN cat << EOF > package.json
+{
+  "name": "DuckHunt-JS",
+  "version": "2.0.0",
+  "description": "Duckhunt implemented in JS",
+  "main": "main.js",
+  "scripts": {
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MattSurabian/DuckHunt-JS.git"
+  },
+  "keywords": [
+    "Duckhunt",
+    "Duckhunt-JS",
+    "HTML5"
+  ],
+  "author": "Matt Surabian",
+  "license": "MIT",
+  "gitHead": "85a85bc6d7a26917cd37d981928ad01be2e06c99",
+  "readmeFilename": "README",
+  "devDependencies": {
+    "audiosprite": "^0.5.0",
+    "babelify": "^6.1.2",
+    "bluebird": "^2.9.32",
+    "browserify": "^10.2.4",
+    "glob": "^5.0.13",
+    "gsap": "^1.18.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-jscs": "^1.6.0",
+    "gulp-jshint": "^1.11.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.4.2",
+    "howler": "^1.1.26",
+    "lodash": "^3.10.0",
+    "pixi.js": "^3.0.0",
+    "tween.js": "^0.14.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+} EOF
+
 RUN npm install
 
 # Bundle app source
-COPY . /usr/src/app
+# COPY . /usr/src/app
 
-EXPOSE 8080
+# EXPOSE 8080
 CMD [ "gulp", "serve" ]
 
